@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Réservations</title>
+</head>
+<body>
+<h1>Gestion des réservations</h1>
+
+<form method="post" action="/reservations">
+    <input type="text" name="nomClient" placeholder="Nom du client" required>
+    <input type="email" name="email" placeholder="Email" required>
+    <input type="number" name="nombrePersonnes" placeholder="Nombre de personnes" min="1" required>
+    <input type="date" name="dateReservation" required>
+    <button type="submit">Ajouter</button>
+</form>
+
+<hr>
+<table border="1">
+    <tr>
+        <th>Nom</th>
+        <th>Email</th>
+        <th>Personnes</th>
+        <th>Date</th>
+        <th>Action</th>
+    </tr>
+    <tr th:each="r : ${reservations}">
+        <td th:text="${r.nomClient}"></td>
+        <td th:text="${r.email}"></td>
+        <td th:text="${r.nombrePersonnes}"></td>
+        <td th:text="${r.dateReservation}"></td>
+        <td>
+            <a th:href="@{'/reservations/modifier/' + ${r.id}}">Modifier</a> |
+            <a th:href="@{'/reservations/supprimer/' + ${r.id}}">Supprimer</a>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>
