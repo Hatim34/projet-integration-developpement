@@ -1,23 +1,21 @@
 package be.iccbxl.pid.reservationsspringboot.controller;
 
 import be.iccbxl.pid.reservationsspringboot.model.Reservation;
-import be.iccbxl.pid.reservationsspringboot.repository.ReservationRepository;
+import be.iccbxl.pid.reservationsspringboot.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.time.LocalDate;
 
 @Controller
 public class ReservationController {
-
     @Autowired
-    private ReservationRepository reservationRepository;
+    private ReservationService reservationService;
 
     @GetMapping("/reservations")
     public String afficherReservations(Model model) {
-        model.addAttribute("reservations", reservationRepository.findAll());
+        model.addAttribute("reservations", reservationService.findAll());
         return "reservations";
     }
 
@@ -27,19 +25,20 @@ public class ReservationController {
                                      @RequestParam int nombrePersonnes,
                                      @RequestParam String dateReservation) {
         Reservation r = new Reservation(nomClient, email, nombrePersonnes, LocalDate.parse(dateReservation));
-        reservationRepository.save(r);
+        reservationService.save(r);
         return "redirect:/reservations";
     }
 
     @GetMapping("/reservations/supprimer/{id}")
     public String supprimerReservation(@PathVariable Long id) {
-        reservationRepository.deleteById(id);
+        reservationService.deleteById(id);
         return "redirect:/reservations";
     }
 
     @GetMapping("/reservations/modifier/{id}")
-    public String afficherFormulaireModification(@PathVariable Long id, Model model) {
-        Reservation reservation = reservationRepository.findById(id).orElse(null);
+    public String afficherModification(@PathVariable Long id, Model model) {
+        Reservation reservation = reservationService.findById(id)
+            .orElseThrow(() -> new RuntimeException("Réservation non trouvée"));
         model.addAttribute("reservation", reservation);
         return "modifier-reservation";
     }
@@ -50,13 +49,13 @@ public class ReservationController {
                                       @RequestParam String email,
                                       @RequestParam int nombrePersonnes,
                                       @RequestParam String dateReservation) {
-        Reservation r = reservationRepository.findById(id).orElse(null);
+        Reservation r = reservationService.findById(id).orElse(null);
         if (r != null) {
             r.setNomClient(nomClient);
             r.setEmail(email);
             r.setNombrePersonnes(nombrePersonnes);
             r.setDateReservation(LocalDate.parse(dateReservation));
-            reservationRepository.save(r);
+            reservationService.save(r);
         }
         return "redirect:/reservations";
     }
