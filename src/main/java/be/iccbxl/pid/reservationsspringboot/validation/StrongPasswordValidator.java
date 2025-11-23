@@ -8,8 +8,8 @@ public class StrongPasswordValidator implements ConstraintValidator<StrongPasswo
 
     @Override
     public boolean isValid(String password, ConstraintValidatorContext context) {
-        if (password == null) {
-            return false;
+        if (password == null || password.isBlank()) {
+            return true;
         }
         return password.matches(PASSWORD_PATTERN);
     }

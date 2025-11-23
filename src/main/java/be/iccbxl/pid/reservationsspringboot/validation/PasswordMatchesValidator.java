@@ -22,7 +22,10 @@ public class PasswordMatchesValidator implements ConstraintValidator<PasswordMat
         } else {
             return true;
         }
-        if (password == null || confirm == null) {
+        if ((password == null || password.isBlank()) && (confirm == null || confirm.isBlank())) {
+            return true;
+        }
+        if (password == null) {
             return false;
         }
         return password.equals(confirm);
