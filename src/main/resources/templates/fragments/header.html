@@ -26,6 +26,7 @@
 <a th:href="@{/register}" class="nav-link">S'inscrire</a></p>
 <div sec:authorize="isAuthenticated()">
 <p>Bonjour <span sec:authentication="principal.username">Utilisateur</span>!</p>
+<p><a th:href="@{/profile}">Mon profil</a></p>
 <form th:action="@{/logout}" method="post" class="nav-link">
 <button type="submit">Se déconnecter</button>
 </form>
