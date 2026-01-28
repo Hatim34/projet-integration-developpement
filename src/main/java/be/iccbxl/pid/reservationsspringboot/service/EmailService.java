@@ -13,13 +13,15 @@ public class EmailService {
     private final JavaMailSender mailSender;
     @Value("${app.mail.from:no-reply@reservations.com}")
     private String from;
+    @Value("${spring.application.frontend-url:http://localhost:8080}")
+    private String frontendUrl;
 
     public EmailService(JavaMailSender mailSender) {
         this.mailSender = mailSender;
     }
 
     public void sendPasswordResetMail(String to, String token) {
-        String resetUrl = "http://localhost:8080/reset-password?token=" + token;
+        String resetUrl = frontendUrl + "/reset-password?token=" + token;
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(to);
         message.setFrom(from);
