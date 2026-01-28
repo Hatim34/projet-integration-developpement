@@ -20,5 +20,22 @@
 </div>
 <div th:replace="~{fragments/footer :: footer}">&copy; 2016 The Static Templates</div>
 <th:block layout:fragment="scripts"></th:block>
+<script th:inline="javascript">
+const csrfParam = /*[[${_csrf.parameterName}]]*/ "_csrf";
+const csrfToken = /*[[${_csrf.token}]]*/ "";
+document.addEventListener('DOMContentLoaded', () => {
+    if (!csrfToken) return;
+    document.querySelectorAll('form').forEach(form => {
+        const method = (form.getAttribute('method') || '').toLowerCase();
+        if (method === 'get') return;
+        if (form.querySelector(`input[name="${csrfParam}"]`)) return;
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = csrfParam;
+        input.value = csrfToken;
+        form.appendChild(input);
+    });
+});
+</script>
 </body>
 </html>
