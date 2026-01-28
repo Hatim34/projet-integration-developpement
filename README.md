@@ -2,12 +2,22 @@
 
 Application Spring Boot (MVP) : catalogue d’artistes, authentification et API REST.
 
-## Lancer
+## Prérequis
+- Java 21
+- Maven 3.6+
+
+## Lancer l’application
 ```bash
 mvn spring-boot:run
 ```
 
-## API
+## Fonctionnalités
+- Authentification (login/logout, inscription, reset mot de passe)
+- Navigation principale
+- Catalogue artistes (liste + fiche détail)
+- Profil (détails, mise à jour, suppression)
+
+## API REST
 - `GET /api/artists`
 - `GET /api/artists/{id}`
 - `POST /api/admin/artists`
