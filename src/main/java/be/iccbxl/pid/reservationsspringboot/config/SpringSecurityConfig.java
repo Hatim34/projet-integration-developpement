@@ -32,13 +32,16 @@ public class SpringSecurityConfig {
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         return http
             .cors(Customizer.withDefaults())
-            .csrf(Customizer.withDefaults())
+            .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> {
                 auth.requestMatchers("/", "/login", "/login**", "/css/**", "/js/**", "/forgot-password", "/reset-password", "/reset-success", "/register").permitAll();
                 auth.requestMatchers("/admin").hasRole("ADMIN");
                 auth.requestMatchers("/user").hasRole("MEMBER");
+                auth.requestMatchers("/api/admin/**").hasRole("ADMIN");
+                auth.requestMatchers("/api/**").permitAll();
                 auth.anyRequest().permitAll();
             })
+            .httpBasic(Customizer.withDefaults())
             .formLogin(form -> form
                 .loginPage("/login")
                 .usernameParameter("login")
