@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout">
+<head>
+<title>Representations</title>
+</head>
+<body layout:decorate="~{layouts/main}">
+<div class="container">
+<div layout:fragment="content">
+<h2 th:text="${title}">Liste des representations</h2>
+<table th:unless="${#lists.isEmpty(representations)}">
+<thead>
+<tr>
+<th>Show</th>
+<th>Date</th>
+<th>Heure</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr th:each="representation : ${representations}">
+<td th:text="${representation.show.title}">Show</td>
+<td th:text="${#temporals.format(representation.when, 'yyyy-MM-dd')}">2012-10-12</td>
+<td th:text="${#temporals.format(representation.when, 'HH:mm')}">13:30</td>
+<td><a th:href="@{/representations/{id}(id=${representation.id})}">Voir</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</body>
+</html>

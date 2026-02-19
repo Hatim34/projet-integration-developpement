@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout">
+<head>
+<title>Representation</title>
+</head>
+<body layout:decorate="~{layouts/main}">
+<div class="container">
+<div layout:fragment="content">
+<h2 th:text="${title}">Fiche d'une representation</h2>
+<p><strong>Show:</strong> <span th:text="${representation.show.title}">Show</span></p>
+<p><strong>Date:</strong> <span th:text="${date}">2012-10-12</span></p>
+<p><strong>Heure:</strong> <span th:text="${heure}">13:30</span></p>
+<p th:if="${location != null}"><strong>Lieu:</strong> <span th:text="${location.designation}">Lieu</span></p>
+<p th:if="${location == null}"><strong>Lieu:</strong> <span>Inconnu</span></p>
+<a th:href="@{/representations}">Retour à la liste</a>
+</div>
+</div>
+</body>
+</html>
