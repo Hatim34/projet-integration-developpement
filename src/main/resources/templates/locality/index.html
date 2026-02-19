@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout" layout:decorate="~{layouts/main}">
+<head>
+<title>Liste des localites</title>
+</head>
+<body>
+<div class="container">
+<div layout:fragment="content">
+<h1 th:text="${title}">Liste des localites</h1>
+<ul th:unless="${#lists.isEmpty(localities)}">
+<li th:each="locality : ${localities}">
+<span th:text="|${locality.postalCode} ${locality.locality}|"></span>
+<a th:href="@{/localities/{id}(id=${locality.id})}">View</a>
+</li>
+</ul>
+</div>
+</div>
+</body>
+</html>
