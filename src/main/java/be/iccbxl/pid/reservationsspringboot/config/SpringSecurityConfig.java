@@ -32,7 +32,7 @@ public class SpringSecurityConfig {
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         return http
             .cors(Customizer.withDefaults())
-            .csrf(csrf -> csrf.ignoringRequestMatchers("/api/**"))
+            .csrf(Customizer.withDefaults())
             .authorizeHttpRequests(auth -> {
                 auth.requestMatchers("/", "/login", "/login**", "/css/**", "/js/**", "/forgot-password", "/reset-password", "/reset-success", "/register").permitAll();
                 auth.requestMatchers("/admin").hasRole("ADMIN");
