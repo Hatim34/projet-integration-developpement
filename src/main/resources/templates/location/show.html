@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout" layout:decorate="~{layouts/main}">
+<head>
+<title>Fiche d'un lieu</title>
+</head>
+<body>
+<div class="container">
+<div layout:fragment="content">
+<h1 th:text="${location.designation}">Lieu</h1>
+<p th:text="${location.address}">Adresse</p>
+<p th:if="${location.locality != null}" th:text="|${location.locality.postalCode} ${location.locality.locality}|">Localite</p>
+<nav><a th:href="@{/locations}">Retour a l'index</a></nav>
+</div>
+</div>
+</body>
+</html>
