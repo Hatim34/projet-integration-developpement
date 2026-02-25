@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout" layout:decorate="~{layouts/main}">
+<head>
+<title>Fiche d'un spectacle</title>
+</head>
+<body>
+<div class="container">
+<div layout:fragment="content">
+<h1 th:text="${show.title}">Spectacle</h1>
+<p th:text="${show.description}">Description</p>
+<p th:if="${show.location != null}" th:text="${show.location.designation}">Lieu</p>
+<nav><a th:href="@{/shows}">Retour a l'index</a></nav>
+</div>
+</div>
+</body>
+</html>
