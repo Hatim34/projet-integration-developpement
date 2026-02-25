@@ -7,9 +7,95 @@
 <div class="container">
 <div layout:fragment="content">
 <h1 th:text="${show.title}">Spectacle</h1>
+<section>
+<h2>Informations generales</h2>
+<p><strong>Slug:</strong> <span th:text="${show.slug}">slug</span></p>
+<p><strong>Prix:</strong> <span th:text="${show.price}">0.00</span></p>
+<p><strong>Reservable:</strong> <span th:text="${show.bookable ? 'Oui' : 'Non'}">Oui</span></p>
+<p><strong>Creation:</strong> <span th:text="${show.createdAt}">2020-01-01</span></p>
+<p><strong>Mise a jour:</strong> <span th:text="${show.updatedAt}">2020-01-01</span></p>
+</section>
+<section>
+<h2>Affiche</h2>
+<div th:if="${show.posterUrl != null}">
+<img th:src="@{/img/{file}(file=${show.posterUrl})}" alt="Affiche">
+</div>
+<div th:if="${show.posterUrl == null}">
+<p>Aucune affiche disponible.</p>
+</div>
+</section>
+<section>
+<h2>Description</h2>
 <p th:text="${show.description}">Description</p>
-<p th:if="${show.location != null}" th:text="${show.location.designation}">Lieu</p>
-<nav><a th:href="@{/shows}">Retour a l'index</a></nav>
+</section>
+<section>
+<h2>Tarifs</h2>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Prix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Standard</td>
+<td th:text="${show.price}">0.00</td>
+</tr>
+<tr>
+<td>Reduit</td>
+<td th:text="${show.price != null ? show.price : '0.00'}">0.00</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section>
+<h2>Lieu</h2>
+<p th:if="${show.location != null}">
+<strong>Nom:</strong>
+<span th:text="${show.location.designation}">Lieu</span>
+</p>
+<p th:if="${show.location != null}">
+<strong>Adresse:</strong>
+<span th:text="${show.location.address}">Adresse</span>
+</p>
+<p th:if="${show.location != null && show.location.locality != null}">
+<strong>Localite:</strong>
+<span th:text="|${show.location.locality.postalCode} ${show.location.locality.locality}|">1000 Ville</span>
+</p>
+<p th:if="${show.location != null}">
+<strong>Site:</strong>
+<span th:text="${show.location.website != null ? show.location.website : 'Non renseigne'}">site</span>
+</p>
+<p th:if="${show.location != null}">
+<strong>Telephone:</strong>
+<span th:text="${show.location.phone != null ? show.location.phone : 'Non renseigne'}">phone</span>
+</p>
+<p th:if="${show.location == null}">Lieu inconnu.</p>
+</section>
+<section>
+<h2>Conditions</h2>
+<ul>
+<li>Reservation selon disponibilite.</li>
+<li>Annulation possible jusqu a 24h avant.</li>
+<li>Acces libre pour les mineurs accompagnes.</li>
+</ul>
+</section>
+<section>
+<h2>Programmation</h2>
+<ul>
+<li>Seances regulieres selon calendrier.</li>
+<li>Ouverture des portes 30 minutes avant.</li>
+<li>Placement libre sauf indication contraire.</li>
+</ul>
+</section>
+<section>
+<h2>Navigation</h2>
+<ul>
+<li><a th:href="@{/shows}">Retour a l'index</a></li>
+<li><a th:href="@{/}">Accueil</a></li>
+</ul>
+</section>
 </div>
 </div>
 </body>

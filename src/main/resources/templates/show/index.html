@@ -7,12 +7,62 @@
 <div class="container">
 <div layout:fragment="content">
 <h1 th:text="${title}">Liste des spectacles</h1>
-<ul th:unless="${#lists.isEmpty(shows)}">
-<li th:each="show : ${shows}">
-<span th:text="${show.title}">Spectacle</span>
-<a th:href="@{/shows/{id}(id=${show.id})}">View</a>
-</li>
+<p>Catalogue des spectacles disponibles.</p>
+<div class="panel">
+<h2>Resume</h2>
+<ul>
+<li>Total: <span th:text="${#lists.size(shows)}">0</span></li>
+<li>Affichage par ordre alphabetique</li>
+<li>Selection possible par lieu</li>
 </ul>
+</div>
+<div class="panel">
+<h2>Filtres</h2>
+<form>
+<label>Titre</label>
+<input type="text" placeholder="Rechercher un titre">
+<label>Disponibilite</label>
+<select>
+<option value="">Tous</option>
+<option value="1">Reservable</option>
+<option value="0">Non reservable</option>
+</select>
+<button type="submit">Filtrer</button>
+</form>
+</div>
+<table th:unless="${#lists.isEmpty(shows)}">
+<thead>
+<tr>
+<th>Titre</th>
+<th>Slug</th>
+<th>Prix</th>
+<th>Lieu</th>
+<th>Disponible</th>
+<th>Creation</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr th:each="show : ${shows}">
+<td th:text="${show.title}">Spectacle</td>
+<td th:text="${show.slug}">slug</td>
+<td th:text="${show.price}">0.00</td>
+<td th:text="${show.location != null ? show.location.designation : 'Inconnu'}">Lieu</td>
+<td th:text="${show.bookable ? 'Oui' : 'Non'}">Oui</td>
+<td th:text="${show.createdAt}">2020-01-01</td>
+<td><a th:href="@{/shows/{id}(id=${show.id})}">Voir</a></td>
+</tr>
+</tbody>
+</table>
+<p th:if="${#lists.isEmpty(shows)}">Aucun spectacle pour le moment.</p>
+<section>
+<h2>Informations utiles</h2>
+<ul>
+<li>Les details complets sont accessibles sur la fiche.</li>
+<li>Les spectacles peuvent etre reserves selon disponibilite.</li>
+<li>Les prix sont affiches a titre indicatif.</li>
+</ul>
+</section>
 </div>
 </div>
 </body>
