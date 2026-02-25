@@ -7,9 +7,79 @@
 <div class="container">
 <div layout:fragment="content">
 <h1 th:text="${location.designation}">Lieu</h1>
-<p th:text="${location.address}">Adresse</p>
-<p th:if="${location.locality != null}" th:text="|${location.locality.postalCode} ${location.locality.locality}|">Localite</p>
-<nav><a th:href="@{/locations}">Retour a l'index</a></nav>
+<section>
+<h2>Informations generales</h2>
+<p><strong>Slug:</strong> <span th:text="${location.slug}">slug</span></p>
+<p><strong>Designation:</strong> <span th:text="${location.designation}">Designation</span></p>
+<p><strong>Adresse:</strong> <span th:text="${location.address}">Adresse</span></p>
+<p th:if="${location.locality != null}">
+<strong>Localite:</strong>
+<span th:text="|${location.locality.postalCode} ${location.locality.locality}|">Localite</span>
+</p>
+</section>
+<section>
+<h2>Contact</h2>
+<p><strong>Site:</strong> <span th:text="${location.website != null ? location.website : 'Non renseigne'}">site</span></p>
+<p><strong>Telephone:</strong> <span th:text="${location.phone != null ? location.phone : 'Non renseigne'}">tel</span></p>
+</section>
+<section>
+<h2>Acces</h2>
+<ul>
+<li>Acces transport en commun.</li>
+<li>Acces PMR selon disponibilite.</li>
+<li>Parkings a proximite.</li>
+</ul>
+</section>
+<section>
+<h2>Notes</h2>
+<p>Les informations sont communiquees par les organisateurs.</p>
+</section>
+<section>
+<h2>Services</h2>
+<table>
+<thead>
+<tr>
+<th>Service</th>
+<th>Disponible</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Billetterie</td>
+<td>Oui</td>
+</tr>
+<tr>
+<td>Bar</td>
+<td>Oui</td>
+</tr>
+<tr>
+<td>Vestiaire</td>
+<td>Selon evenement</td>
+</tr>
+<tr>
+<td>Accessibilite</td>
+<td>Partielle</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section>
+<h2>Horaires indicatifs</h2>
+<ul>
+<li>Ouverture : 18:00</li>
+<li>Fermeture : 23:00</li>
+<li>Fermeture les jours feries selon programmation</li>
+</ul>
+<p>Ces horaires peuvent varier selon la saison.</p>
+<p>Verifier les horaires sur le site du lieu.</p>
+</section>
+<section>
+<h2>Navigation</h2>
+<ul>
+<li><a th:href="@{/locations}">Retour a l'index</a></li>
+<li><a th:href="@{/}">Accueil</a></li>
+</ul>
+</section>
 </div>
 </div>
 </body>

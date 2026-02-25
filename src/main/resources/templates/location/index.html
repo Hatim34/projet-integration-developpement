@@ -7,12 +7,89 @@
 <div class="container">
 <div layout:fragment="content">
 <h1 th:text="${title}">Liste des lieux</h1>
+<p>Liste des lieux de spectacle.</p>
+<div class="panel">
+<h2>Resume</h2>
+<ul>
+<li>Total: <span th:text="${#lists.size(locations)}">0</span></li>
+<li>Classement par designation</li>
+<li>Selection possible par localite</li>
+</ul>
+</div>
+<div class="panel">
+<h2>Filtres</h2>
+<form>
+<label>Designation</label>
+<input type="text" placeholder="Recherche">
+<label>Localite</label>
+<input type="text" placeholder="Ville">
+<button type="submit">Filtrer</button>
+</form>
+</div>
 <ul th:unless="${#lists.isEmpty(locations)}">
 <li th:each="location : ${locations}">
 <span th:text="${location.designation}">Lieu</span>
 <a th:href="@{/locations/{id}(id=${location.id})}">View</a>
 </li>
 </ul>
+<table th:unless="${#lists.isEmpty(locations)}">
+<thead>
+<tr>
+<th>Designation</th>
+<th>Adresse</th>
+<th>Localite</th>
+<th>Site</th>
+<th>Telephone</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr th:each="location : ${locations}">
+<td th:text="${location.designation}">Lieu</td>
+<td th:text="${location.address}">Adresse</td>
+<td th:text="${location.locality != null ? location.locality.locality : 'Inconnue'}">Localite</td>
+<td th:text="${location.website != null ? location.website : 'N/A'}">Site</td>
+<td th:text="${location.phone != null ? location.phone : 'N/A'}">Tel</td>
+<td><a th:href="@{/locations/{id}(id=${location.id})}">Voir</a></td>
+</tr>
+</tbody>
+</table>
+<p th:if="${#lists.isEmpty(locations)}">Aucun lieu pour le moment.</p>
+<section>
+<h2>Informations utiles</h2>
+<ul>
+<li>Les fiches contiennent les coordonnees detaillees.</li>
+<li>Les sites web peuvent etre indisponibles.</li>
+<li>Les donnees sont fournies a titre indicatif.</li>
+</ul>
+</section>
+<section>
+<h2>Vue detaillee</h2>
+<div th:each="location : ${locations}">
+<h3 th:text="${location.designation}">Lieu</h3>
+<p th:text="${location.address}">Adresse</p>
+<p th:if="${location.locality != null}" th:text="|${location.locality.postalCode} ${location.locality.locality}|">Localite</p>
+<p th:text="${location.website != null ? location.website : 'Non renseigne'}">Site</p>
+<p th:text="${location.phone != null ? location.phone : 'Non renseigne'}">Tel</p>
+<a th:href="@{/locations/{id}(id=${location.id})}">Consulter</a>
+</div>
+</section>
+<section>
+<h2>Indications</h2>
+<ul>
+<li>Verifier l'adresse avant de se deplacer.</li>
+<li>Les horaires varient selon les spectacles.</li>
+<li>Le site web officiel reste la reference.</li>
+</ul>
+</section>
+<section>
+<h2>Legende</h2>
+<ul>
+<li>N/A : information non disponible</li>
+<li>Localite : code postal + ville</li>
+<li>Site : URL du lieu</li>
+</ul>
+</section>
 </div>
 </div>
 </body>
