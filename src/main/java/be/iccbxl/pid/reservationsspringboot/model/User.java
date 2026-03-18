@@ -49,6 +49,16 @@ public class User {
     @EqualsAndHashCode.Exclude
     private Set<Role> roles = new HashSet<>();
 
+    @ManyToMany
+    @JoinTable(
+        name = "reservations",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "representation_id")
+    )
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<Representation> representations = new HashSet<>();
+
     @Column(name = "created_at")
     private LocalDateTime createdAt = LocalDateTime.now();
 
