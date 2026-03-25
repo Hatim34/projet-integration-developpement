@@ -74,6 +74,16 @@
 <p th:if="${show.location == null}">Lieu inconnu.</p>
 </section>
 <section>
+<h2>Liste des artistes</h2>
+<ul th:if="${not #lists.isEmpty(show.artistTypes)}">
+<li th:each="collaborateur : ${show.artistTypes}"
+th:text="|${collaborateur.artist.firstname} ${collaborateur.artist.lastname} (${collaborateur.type.type})|">
+Firstname Lastname (type)
+</li>
+</ul>
+<p th:if="${#lists.isEmpty(show.artistTypes)}">Aucun artiste lie a ce spectacle.</p>
+</section>
+<section>
 <h2>Conditions</h2>
 <ul>
 <li>Reservation selon disponibilite.</li>
