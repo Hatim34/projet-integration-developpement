@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout" layout:decorate="~{layouts/main}">
+<head>
+<title>Liens artiste type</title>
+</head>
+<body>
+<div class="container">
+<div layout:fragment="content">
+<h1 th:text="${title}">Liste des liens artiste type</h1>
+<table th:unless="${#lists.isEmpty(artistTypes)}">
+<thead>
+<tr>
+<th>Artiste</th>
+<th>Type</th>
+<th>Spectacles</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr th:each="artistType : ${artistTypes}">
+<td th:text="|${artistType.artist.firstname} ${artistType.artist.lastname}|">Artiste</td>
+<td th:text="${artistType.type.type}">Type</td>
+<td th:text="${#lists.size(artistType.shows)}">0</td>
+<td><a th:href="@{/artist-types/{id}(id=${artistType.id})}">Voir</a></td>
+</tr>
+</tbody>
+</table>
+<p th:if="${#lists.isEmpty(artistTypes)}">Aucun lien artiste type pour le moment.</p>
+<nav>
+<a th:href="@{/artists}">Artistes</a>
+<a th:href="@{/types}">Types</a>
+<a th:href="@{/shows}">Spectacles</a>
+</nav>
+</div>
+</div>
+</body>
+</html>

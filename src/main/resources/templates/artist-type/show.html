@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.mx/thymeleaf/layout" layout:decorate="~{layouts/main}">
+<head>
+<title>Fiche lien artiste type</title>
+</head>
+<body>
+<div class="container">
+<div layout:fragment="content">
+<h1 th:text="${title}">Fiche lien artiste type</h1>
+<section>
+<h2>Artiste</h2>
+<p>
+<a th:href="@{/artists/{id}(id=${artistType.artist.id})}" th:text="|${artistType.artist.firstname} ${artistType.artist.lastname}|">Artiste</a>
+</p>
+</section>
+<section>
+<h2>Type</h2>
+<p>
+<a th:href="@{/types/{id}(id=${artistType.type.id})}" th:text="${artistType.type.type}">Type</a>
+</p>
+</section>
+<section>
+<h2>Spectacles lies</h2>
+<ul th:unless="${#lists.isEmpty(artistType.shows)}">
+<li th:each="show : ${artistType.shows}">
+<a th:href="@{/shows/{id}(id=${show.id})}" th:text="${show.title}">Spectacle</a>
+</li>
+</ul>
+<p th:if="${#lists.isEmpty(artistType.shows)}">Aucun spectacle lie.</p>
+</section>
+<nav>
+<a th:href="@{/artist-types}">Retour a l'index</a>
+</nav>
+</div>
+</div>
+</body>
+</html>
