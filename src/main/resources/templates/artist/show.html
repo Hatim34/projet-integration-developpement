@@ -17,6 +17,15 @@ th:method="delete">
 th:onclick="|if(confirm('Confirm delete artist #${artist.id}')) document.getElementById('deleteForm-${artist.id}').submit(); return false;|">Delete</a>
 </form>
 </div>
+<section>
+<h3>Types</h3>
+<ul th:unless="${#lists.isEmpty(artist.types)}">
+<li th:each="type : ${artist.types}">
+<a th:href="@{/types/{id}(id=${type.id})}" th:text="${type.type}">Type</a>
+</li>
+</ul>
+<p th:if="${#lists.isEmpty(artist.types)}">Aucun type lie a cet artiste.</p>
+</section>
 <nav><a th:href="@{/artists}">Retour à l'index</a></nav>
 </div>
 </div>

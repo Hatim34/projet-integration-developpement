@@ -16,6 +16,7 @@
 <tr>
 <th>Firstname</th>
 <th>Lastname</th>
+<th>Types</th>
 <th colspan="3">Actions</th>
 </tr>
 </thead>
@@ -23,6 +24,14 @@
 <tr th:each="artist : ${artists}">
 <td th:text="${artist.firstname}">Bob</td>
 <td th:text="${artist.lastname}">Sull</td>
+<td>
+<ul th:unless="${#lists.isEmpty(artist.types)}">
+<li th:each="type : ${artist.types}">
+<a th:href="@{/types/{id}(id=${type.id})}" th:text="${type.type}">Type</a>
+</li>
+</ul>
+<span th:if="${#lists.isEmpty(artist.types)}">Aucun type</span>
+</td>
 <td><a th:href="@{/artists/{id}(id=${artist.id})}">View</a></td>
 <td><a th:href="@{/artists/{id}/edit(id=${artist.id})}">Edit</a></td>
 <td>
