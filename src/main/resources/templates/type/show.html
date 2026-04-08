@@ -7,6 +7,26 @@
 <div class="container">
 <div layout:fragment="content">
 <h1 th:text="${#strings.capitalize(type.type)}">Acteur</h1>
+<section>
+<h2>Artistes lies</h2>
+<table th:unless="${#lists.isEmpty(type.artists)}">
+<thead>
+<tr>
+<th>Firstname</th>
+<th>Lastname</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr th:each="artist : ${type.artists}">
+<td th:text="${artist.firstname}">Firstname</td>
+<td th:text="${artist.lastname}">Lastname</td>
+<td><a th:href="@{/artists/{id}(id=${artist.id})}">Voir</a></td>
+</tr>
+</tbody>
+</table>
+<p th:if="${#lists.isEmpty(type.artists)}">Aucun artiste lie a ce type.</p>
+</section>
 <nav><a th:href="@{/types}">Retour a l'index</a></nav>
 </div>
 </div>
